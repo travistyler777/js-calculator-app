@@ -1,0 +1,121 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    padding-top: 30px;
+}
+#wrapper {
+    border: 7px solid #122b4b;
+    border-radius: 30px;
+    width: 400px;
+    margin: auto;
+    padding: 20px 30px 35px;
+    background: linear-gradient(180.43deg, #FED957 8.68%, #FF307F 96.05%);
+    overflow: hidden;
+}
+.header {
+    display: flex;
+    margin-bottom: 10px;
+}
+.header-left {
+    width: 300px;
+}
+.header-right {
+    width: 300px;
+    display: flex;
+    gap: 5px;
+    justify-content:flex-end;
+}
+.header-center {
+    width: 100%;
+}
+.pill-bar {
+    background-color: #122b4b;
+    height: 10px;
+    width: 130px;
+    margin: auto;
+    border-radius: 100px;;
+}
+.screen {
+    padding: 50px 0;
+}
+.secondary-calc-text {
+    font-size: 50px;
+    color: #122b4b;
+    text-align: right;
+    height: 55px;
+}
+.primary-calc-text {
+    font-size: 90px;
+    color: #122b4b;
+    text-align: right;
+    height: 100px;
+}
+.buttons-wrapper {
+    margin: 0 -30px -35px;
+    padding: 10px 30px 30px 20px;
+    display: flex;
+
+}
+.buttons-left {
+    background-color: #122b4b;
+    margin: 10px -25px -30px -20px;
+    padding: 20px 10px 40px 20px;
+    border-radius: 0 30px 0 0;
+}
+.button-row {
+    display: flex;
+}
+.button-row div {
+    background-color: #122b4b;
+    border: 2px solid #214472;
+    margin: 5px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-right {
+   padding-top: 25px;
+   margin-left: 20px;
+   padding-left: 10px;
+   padding-right: 5px;
+    
+    
+}
+.buttons-right div {
+    flex-direction: column;
+}
+div.zero-btn {
+    width: 145px;
+    justify-content: start;
+    padding-left: 30px;
+}
+div.button {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+div.button:active {
+    background-color:#214472;
+}
+div.yellow-btn {
+    background-color: #fad035;
+    color:#122b4b;
+}
+div.yellow-btn:active {
+    background-color: #f6e4a3;
+}
+.spacing-right {
+    background-color: #122b4b;
+    margin: 10px -30px -30px 0;
+    width: 100px;
+    border-radius: 30px 0 0 0;
+}
+
+
