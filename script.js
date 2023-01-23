@@ -13,6 +13,7 @@ top_display.innerHTML = '';
 bottom_display.innerHTML = '0';
 
 let operation_count = 0;
+let allow_operation = true;
 
 let current_number = '';
 let current_log = '';
@@ -39,12 +40,12 @@ function divide(total, next) {
 
 function operate(total,next,sign)
 {
+    if (sign === 'x') {
+        return multiply(total, next);}
     if (sign === '+') {
         return add(total, next);}
     if (sign === '-') {
         return subtract(total, next);}
-    if (sign === 'x') {
-        return multiply(total, next);}
     if (sign === '÷') {
         return divide(total, next);}
 }
@@ -118,6 +119,10 @@ number_btn.forEach((btn) => {
         
         //Bottom display
         bottom_display.innerHTML = current_number;
+
+        //allow operator button to be pressed again
+        allow_operation = true;
+        
     
 
     });
@@ -158,9 +163,11 @@ delete_btn.forEach((btn) => {
 operation_btn.forEach((btn) => {
     btn.addEventListener('click', () => {
 
-        if(calc_obj.sign != current_sign)
+        
+        if (allow_operation === true)
         {
 
+        
             if(operation_count > 0)
             {
                 
@@ -192,12 +199,12 @@ operation_btn.forEach((btn) => {
                 //clear temp var
                 current_number = '';
                 
-
-        
+                //allow operator button to be pressed again
+                allow_operation = false;    
+                
             }
-            else {
-
-
+            else 
+            {
 
                 //Add current number into object next key
                 calc_obj.next = parseFloat(current_number);
@@ -223,14 +230,14 @@ operation_btn.forEach((btn) => {
                 //Clear current number temp var
                 current_number = '';
 
+                //allow operator button to be pressed again
+                allow_operation = false;    
+
 
             }
+
             operation_count++;
-        }
-
-
-
-
+        }       
     });
 });
 
