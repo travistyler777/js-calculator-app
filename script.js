@@ -1,98 +1,114 @@
-const button = document.querySelectorAll('.button');
-const delete_button = document.querySelector('.delete-btn');
-const plus_minus_button = document.querySelector('.plus-minus-btn');
+const clear_btn = document.querySelectorAll('.clear-btn');
+const delete_btn = document.querySelectorAll('.delete-btn');
+const plus_minus_btn = document.querySelectorAll('.plus-minus-btn');
+const number_btn = document.querySelectorAll('.number-btn');
+const decimal_btn = document.querySelectorAll('.decimal-btn');
+const operation_btn = document.querySelectorAll('.operation-btn');
+const equal_btn = document.querySelectorAll('.equal-btn');
 
 let top_display = document.querySelector('.top-display');
 let bottom_display = document.querySelector('.bottom-display');
 
 top_display.innerHTML = '';
-bottom_display.innerHTML = '0';
+bottom_display.innerHTML = '';
 
-let calc_sign = "";
-let calc_input = false;
+let operation_count = 0;
 
-let calc_arr = [];
+let current_number = '';
 
-let first_value = 0;
-let second_value = 0;
+const calc_obj = {
+    total: '',
+    next: '',
+    sign: ''
+};
 
-function add(a,b) {
-    return a + b;
-}
-function subtract(a,b) {
-    return a - b;
-}
-function multiply(a,b) {
-    return a * b;
-}
-function divide(a,b) {
-    if (a === 0 && b === 0)
-    {
-        return 'Dude...WTF...';
-    }
-
-    const output = a / b
-
+function add(total, next) { 
+    return total + next; }
+function subtract(total, next) { 
+    return total - next; }
+function multiply(total, next) { 
+    return total * next; }
+function divide(total, next) {
+    if (total === 0 && next === 0)
+    { return 'Dude...WTF...'; }
+    const output = total / next
     return output.toFixed(2);
 }
 
-function operate(a,b,c)
+function operate(total,next,sign)
 {
-    console.log(c);
-    if (c === '+')
-    {
-        return add(a,b);
-    }
-    if (c === '-')
-    {
-        return subtract(a,b);
-    }
-    if (c === 'x')
-    {
-        return multiply(a,b);
-    }
-    if (c === '÷')
-    {
-        return divide(a,b);
-    }
+    if (sign === '+') {
+        return add(total, next);}
+    if (sign === '-') {
+        return subtract(total, next);}
+    if (sign === 'x') {
+        return multiply(total, next);}
+    if (sign === '÷') {
+        return divide(total, next);}
 }
 
-button.forEach((btn) => {
+clear_btn.forEach((btn) => {
     btn.addEventListener('click', () => {
-       
-        console.log(calc_input);
+        top_display.innerHTML = '';
+        bottom_display.innerHTML = '';
 
-        //clear everything
-        if (btn.innerHTML  === 'C')
-        {
-            top_display.innerHTML = '';
-            bottom_display.innerHTML = '0';
+        operation_count = 0;
 
-            calc_input = false;
-            calc_arr = [];
-        }
+        current_number = '';
 
-        
-        if (calc_input === false){
-
-            console.log(btn.className)
-            if(btn.className.includes('btn-number'))
-            {
-                first_value = first_value + parseInt(btn.innerHTML);
-                console.log(first_value);
-    
-                calc_arr[0] = first_value;
-                console.log(calc_arr);    
-            }
-
-
-        }
-        else {
-
-        }
-
-
+        calc_obj.total = '';
+        calc_obj.next = '';
+        calc_obj.sign = '';
 
     });
-})
+});
+
+number_btn.forEach((btn) => {
+    btn.addEventListener('click', () => {
+
+        current_number = current_number + btn.innerHTML;
+        console.log(current_number);
+        
+        bottom_display.innerHTML = current_number;
+
+    });
+});
+
+delete_btn.forEach((btn) => {
+    btn.addEventListener('click', () => {
+
+        current_number = current_number.slice(0,-1);
+        bottom_display.innerHTML = current_number;
+
+    });
+});
+
+
+
+operation_btn.forEach((btn) => {
+    btn.addEventListener('click', () => {
+
+        if(operation_count >= 1)
+        {
+            //Add number total into calc next
+            //calc_obj.next = parceFloat(current_number)
+        }
+        else {
+            //add number total into calc total
+            //calc_obj.total = parceFloat(current_number)
+        }
+
+        operation_count++;
+
+    });
+});
+
+equal_btn.forEach((btn) => {
+    btn.addEventListener('click', () => {
+
+        //total = total + next number
+        //Update display 
+
+    });
+});
  
