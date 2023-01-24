@@ -37,13 +37,13 @@ body {
 .screen {
     padding: 50px 0;
 }
-.top-display {
+.secondary-display {
     font-size: 50px;
     color: #122b4b;
     text-align: right;
     height: 55px;
 }
-.bottom-display {
+.primary-display {
     font-size: 9vh;
     color: #122b4b;
     text-align: right;

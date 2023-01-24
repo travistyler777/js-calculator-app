@@ -1,251 +1,311 @@
-const clear_btn = document.querySelectorAll('.clear-btn');
-const delete_btn = document.querySelectorAll('.delete-btn');
-const plus_minus_btn = document.querySelectorAll('.plus-minus-btn');
+const clear_btn = document.querySelector('.clear-btn');
+const delete_btn = document.querySelector('.delete-btn');
+const plus_minus_btn = document.querySelector('.plus-minus-btn');
 const number_btn = document.querySelectorAll('.number-btn');
-const decimal_btn = document.querySelectorAll('.decimal-btn');
+const decimal_btn = document.querySelector('.decimal-btn');
 const operation_btn = document.querySelectorAll('.operation-btn');
-const equal_btn = document.querySelectorAll('.equal-btn');
+const equal_btn = document.querySelector('.equal-btn');
 
-let top_display = document.querySelector('.top-display');
-let bottom_display = document.querySelector('.bottom-display');
+let secondary_display = document.querySelector('.secondary-display');
+let primary_display = document.querySelector('.primary-display');
 
-top_display.innerHTML = '';
-bottom_display.innerHTML = '0';
 
-let operation_count = 0;
-let allow_operation = true;
+//REFERENCES
+    //https://www.theodinproject.com/lessons/foundations-calculator
+    //https://captain-usopp.github.io/Calculator/
+//BODMAS method
+    //https://thirdspacelearning.com/blog/what-is-bodmas/#:~:text=The%20BODMAS%20rule%20states%20we,18%20%2B%2025%20%3D%2043).
 
-let current_number = '';
-let current_log = '';
-let current_sign = '';
 
-const calc_obj = {
+let total_string = '';
+let next_string = '';
+let sign_string = '';
+
+let inputs_log = '';
+
+
+
+const inputs = {
     total: 0,
-    next: 0,
+    next: '',
     sign: ''
-};
-
-function add(total, next) { 
-    return total + next; }
-function subtract(total, next) { 
-    return total - next; }
-function multiply(total, next) { 
-    return total * next; }
-function divide(total, next) {
-    if (total === 0 && next === 0)
-    { return 'Dude...WTF...'; }
-    const output = total / next
-    return output.toFixed(2);
 }
 
-function operate(total,next,sign)
+let includes_decimal = false;
+let operation_clicked = false;
+let equals_clicked = false;
+
+
+function operate(total, next, sign)
 {
-    if (sign === 'x') {
-        return multiply(total, next);}
-    if (sign === '+') {
-        return add(total, next);}
-    if (sign === '-') {
-        return subtract(total, next);}
-    if (sign === '÷') {
-        return divide(total, next);}
+
+    if(sign === '+')
+    {
+        calculation = total + next;
+        return calculation;
+    }
+    if(sign === '-')
+    {
+        calculation = total - next;
+        return calculation;
+    }
+    if(sign === 'x')
+    {
+        calculation = total * next;
+        return calculation;
+    }
+    if(sign === '÷')
+    {
+        calculation = total / next;
+        return calculation;
+    }
+
+
 }
 
-clear_btn.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        top_display.innerHTML = '';
-        bottom_display.innerHTML = '0';
-
-        operation_count = 0;
-
-        current_number = '';
-        current_log = '';
-
-        calc_obj.total = 0;
-        calc_obj.next = 0;
-        calc_obj.sign = '';
-
-    });
-});
-
-plus_minus_btn.forEach((btn) => {
-    btn.addEventListener('click', () => {
-
-        
-        if (current_number < 0)
-        {
-            //Convert string to number
-            current_number = parseFloat(current_number);
-    
-            //Turn negative into positive
-            current_number = Math.abs(current_number)
-    
-            //Convert back to string
-            current_number = current_number.toString()
-
-            //Display
-            bottom_display.innerHTML = current_number;
-        }
-        else {
-            //Convert string to number
-            current_number = parseFloat(current_number);
-
-            //Turn negative into negative
-            current_number = -Math.abs(current_number)
-
-            //Convert back to string
-            current_number = current_number.toString()
-
-            //Display
-            bottom_display.innerHTML = current_number;
-        }
-  
-    });
-});
 
 number_btn.forEach((btn) => {
     btn.addEventListener('click', () => {
-
-        //Clears bottom display value
-        bottom_display.innerHTML = '';
-
-        //Take current number var and basicly turns it into array
-        current_number = current_number + btn.innerHTML;
         
-        //Logs values in arr
-        current_log = current_log + btn.innerHTML;
-
-        //Top display
-        top_display.innerHTML = current_log
+        next_string = next_string + btn.textContent;
         
-        //Bottom display
-        bottom_display.innerHTML = current_number;
+        //Log Input
+        inputs_log = inputs_log + btn.textContent
 
-        //allow operator button to be pressed again
-        allow_operation = true;
+        //Input into object
+        inputs.next = parseFloat(next_string);
         
+        //Show on display
+        secondary_display.innerHTML = inputs_log;
+        primary_display.innerHTML = next_string;
+
+        console.log("Next String: " + next_string)
+        console.log("Inputs next: " + inputs.next)
+        console.log("Inputs total: " + inputs.total)
+        console.log("inputs sign: " + inputs.sign);
+  
+        
+    });
+});
+
+decimal_btn.addEventListener('click', ()=> {
     
+    if(includes_decimal === false)
+    {
+        next_string = next_string + decimal_btn.textContent;
 
-    });
+        //Log Input
+        inputs_log = inputs_log + decimal_btn.textContent;
+
+        //Display
+        secondary_display.innerHTML = inputs_log;
+        primary_display.innerHTML = next_string;
+
+        console.log("Next_String: " + next_string);
+        
+        //Reset bools
+        includes_decimal = true
+        
+    }
+
 });
-
-delete_btn.forEach((btn) => {
-    btn.addEventListener('click', () => {
-
-        if(current_number.length < 1)
-        {
-            current_number = '';
-            current_log = '';
-            top_display.innerHTML = '';
-            bottom_display.innerHTML = '0';
-
-            current_number = '';
-            current_log = '';
-            current_sign = '';
-
-
-        }
-        else 
-        {
-            current_log = current_log.slice(0,-1)
-            current_number = current_number.slice(0,-1);
-            console.log(current_number);
-           
-            //Display
-            top_display.innerHTML = current_log;
-            bottom_display.innerHTML = current_number;
-        }
-
-    });
-});
-
-
 
 operation_btn.forEach((btn) => {
     btn.addEventListener('click', () => {
 
+        if(operation_clicked)
+        {   
+
+            console.log("Operations Clicked: " + operation_clicked)
+            console.log("Equals Clicked: " + equals_clicked)
+
+            //next_string = inputs.total.toString()
+            
+            console.log("INPUTS NEXT-: " + next_string);
+            console.log("INPUTS TOTAL-: " + inputs.total);
+
+
+            inputs.total = operate(inputs.total, inputs.next, inputs.sign);
+
+            console.log("INPUTS TOTAL2-: " + inputs.total);
+            
+            inputs.sign = btn.textContent;
+            console.log(inputs.sign);
+
+            //Log Input
+            inputs_log = inputs_log + btn.textContent;
+
+            //Display
+            secondary_display.innerHTML = inputs_log;
+            primary_display.innerHTML = inputs.total;
+
+            //Clear variables
+            next_string = '';
+            includes_decimal = false;
         
-        if (allow_operation === true)
-        {
 
-        
-            if(operation_count > 0)
-            {
-                
-                //Clear display
-                bottom_display.innerHTML = '';
+        }
+        else if(equals_clicked) {
 
-                //Add current number into object next key
-                calc_obj.next = parseFloat(current_number);
-                
-                //Calculate 
-                calc_obj.total = operate(calc_obj.total, calc_obj.next, calc_obj.sign);
+            console.log("Operation Clicked: " + operation_clicked)
+            console.log("Equals Clicked: " + equals_clicked)
+            
 
-                //Display calculation on main display
-                bottom_display.innerHTML = calc_obj.total;
-
-                //Add current sign to temp sign var
-                current_sign = btn.innerHTML;
-
-                //Add sign to top log display
-                top_display.innerHTML = current_log + btn.innerHTML;
-
-                //Add new operator sign to object
-                calc_obj.sign = current_sign;
-
-                //Display log in top display
-                current_log = current_log + btn.innerHTML;
-                top_display.innerHTML = current_log;
-                
-                //clear temp var
-                current_number = '';
-                
-                //allow operator button to be pressed again
-                allow_operation = false;    
-                
-            }
-            else 
-            {
-
-                //Add current number into object next key
-                calc_obj.next = parseFloat(current_number);
-
-                //Add next into object total key
-                calc_obj.total = calc_obj.next;
+            //Assign new operation
+            inputs.sign = btn.textContent;
 
 
-                //Display log in top display
-                current_log = current_log + btn.innerHTML;
-                top_display.innerHTML = current_log;
+    
+            //Log Input
+            inputs_log = inputs_log + btn.textContent;
 
-                //Clear display then display value in bottom display
-                bottom_display.innerHTML = '';
-                current_sign = btn.innerHTML;
+            //Display
+            secondary_display.innerHTML = inputs_log;
+            primary_display.innerHTML = inputs.total;
 
-                //Add calc sign into object
-                calc_obj.sign = current_sign;
+            //Clear variables
+            next_string = '';
+            includes_decimal = false;
+            equals_clicked = false;
+            operation_clicked = true;
+        }
+        else {
+             
+            console.log("Operations Clicked: " + operation_clicked)
+            console.log("Equals Clicked: " + equals_clicked)
 
-                //display sign to bottom variable
-                bottom_display.innerHTML = current_sign;
+            //Set Object Value
+            inputs.next = parseFloat(next_string);
+            inputs.total = parseFloat(next_string);     
+            inputs.sign = btn.textContent;
 
-                //Clear current number temp var
-                current_number = '';
+            console.log("Inputs next: " + inputs.next)
+            console.log("Inputs total: " + inputs.total)
+            console.log("inputs sign: " + inputs.sign);
 
-                //allow operator button to be pressed again
-                allow_operation = false;    
+            //Log Input
+            inputs_log = inputs_log + btn.textContent;
 
+            //Show on display
+            secondary_display.innerHTML = inputs_log;
+            primary_display.innerHTML = next_string;
+    
+            //Clear variables
+            next_string = '';
+            includes_decimal = false;
+            operation_clicked = true;
 
-            }
+        }
 
-            operation_count++;
-        }       
-    });
+    })
 });
 
-equal_btn.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        
-      
+equal_btn.addEventListener('click', () => { 
 
-    });
+    if(equals_clicked)
+    {
+        inputs.total = operate(inputs.total, inputs.next, inputs.sign);
+        
+
+        //Show in display
+        primary_display.innerHTML = inputs.total;
+
+        console.log(inputs.next);
+        console.log(inputs.sign);
+        console.log(inputs.total);
+    }
+    else 
+    {
+
+        
+        console.log(equals_clicked); 
+        
+        //Calculate
+        inputs.total = operate(inputs.total, inputs.next, inputs.sign);
+        
+        //Show in display
+        primary_display.innerHTML = inputs.total;
+        
+        //Make equals true
+        
+        //Clear Next
+        next_string = '';
+        equals_clicked = true;
+        operation_clicked = false;
+    }
+
+    console.log("equal NEXT S: " + next_string);
+    console.log("equal NEXT I: " + inputs.next);
+    console.log("equal TOTAL: " + inputs.total);
+    console.log("equal SIGN: " + inputs.sign);
+
+
 });
- 
+
+
+// delete_btn.addEventListener('click', () => {
+//     next_string = next_string.slice(0, -1);
+//     inputs_log = inputs_log.slice(0, -1);
+//     console.log("Next:: " + next_string);
+//     console.log("Log:: " + inputs_log);
+
+//     if (next_string === null)
+//     {
+//         secondary_display.innerHTML = '';
+//         primary_display.innerHTML = '0';
+
+//         inputs.next = '0';
+//         next_string = '0';
+
+//         operation_clicked = false;
+
+//     }
+//     else {
+
+//         //input values
+//         inputs.next = inputs_log;
+//         inputs.next = next_string;
+
+//         //Show in display
+//         secondary_display.innerHTML = inputs_log;
+//         primary_display.innerHTML = next_string;
+//     }
+
+//     if(next_string.length === 1) {
+//         operation_clicked = true;
+    
+//     }
+
+// });
+
+clear_btn.addEventListener('click', ()=> {
+    
+
+    //Clear Temp Strings
+    total_string = '';
+    next_string = '';
+    sign_string = '';
+
+    //Clear Input Object
+    inputs.total = 0;
+    inputs.next = '';
+    inputs.sign = '';
+    inputs_log = '';
+    console.log("Inputs Total:" + inputs.total);
+    console.log("Inputs Next:" + inputs.next);
+    console.log("Inputs Sign:" + inputs.sign);
+
+    //Clear display
+    primary_display.innerHTML = '0';
+    secondary_display.innerHTML = '';
+
+    includes_decimal = false;
+    operation_clicked = false;
+    equals_clicked = false;
+    
+
+})
+
+
+
+
