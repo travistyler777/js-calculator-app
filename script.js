@@ -243,40 +243,40 @@ equal_btn.addEventListener('click', () => {
 });
 
 
-// delete_btn.addEventListener('click', () => {
-//     next_string = next_string.slice(0, -1);
-//     inputs_log = inputs_log.slice(0, -1);
-//     console.log("Next:: " + next_string);
-//     console.log("Log:: " + inputs_log);
+delete_btn.addEventListener('click', () => {
+    next_string = next_string.slice(0, -1);
+    inputs_log = inputs_log.slice(0, -1);
+    console.log("Next:: " + next_string);
+    console.log("Log:: " + inputs_log);
 
-//     if (next_string === null)
-//     {
-//         secondary_display.innerHTML = '';
-//         primary_display.innerHTML = '0';
+    if (next_string === null)
+    {
+        secondary_display.innerHTML = '';
+        primary_display.innerHTML = '0';
 
-//         inputs.next = '0';
-//         next_string = '0';
+        inputs.next = '0';
+        next_string = '0';
 
-//         operation_clicked = false;
+        operation_clicked = false;
 
-//     }
-//     else {
+    }
+    else {
 
-//         //input values
-//         inputs.next = inputs_log;
-//         inputs.next = next_string;
+        //input values
+        inputs.next = inputs_log;
+        inputs.next = next_string;
 
-//         //Show in display
-//         secondary_display.innerHTML = inputs_log;
-//         primary_display.innerHTML = next_string;
-//     }
+        //Show in display
+        secondary_display.innerHTML = inputs_log;
+        primary_display.innerHTML = next_string;
+    }
 
-//     if(next_string.length === 1) {
-//         operation_clicked = true;
+    if(next_string.length === 1) {
+        operation_clicked = true;
     
-//     }
+    }
 
-// });
+});
 
 clear_btn.addEventListener('click', ()=> {
     
